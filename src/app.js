@@ -1,6 +1,7 @@
 import express from 'express';
 import { criarRotasAuth } from './routes/authRoutes.js';
 import { criarAuthenticateJWT } from './middlewares/authenticateJWT.js';
+import { criarRotasAlunos } from './routes/alunosRoutes.js';
 
 // Cada instância possui seus próprios arrays, inclusive durante os testes.
 export function criarApp(jwtSecret) {
@@ -14,7 +15,7 @@ export function criarApp(jwtSecret) {
 
   // Cadastro e login são públicos; todo acesso a /alunos exige JWT.
   app.use(criarRotasAuth(jwtSecret));
-  app.use('/alunos', criarAuthenticateJWT(jwtSecret));
+  app.use('/alunos', criarAuthenticateJWT(jwtSecret), criarRotasAlunos());
 
   app.use((req, res) => {
     res.status(404).json({ message: 'Rota não encontrada!' });
