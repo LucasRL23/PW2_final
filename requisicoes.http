@@ -1,0 +1,106 @@
+@baseUrl = http://localhost:3000
+# Depois de executar o login, substitua o valor abaixo pelo conteúdo de jwt.
+@token = COLE_O_JWT_AQUI
+
+### 1. Listar sem token (esperado: 401)
+GET {{baseUrl}}/alunos
+
+### 2. Cadastrar usuário (201; 409 se já foi cadastrado nesta execução)
+POST {{baseUrl}}/register
+Content-Type: application/json
+
+{
+  "username": "aluno@example.test",
+  "password": "senha-de-teste"
+}
+
+### 3. Fazer login e copiar jwt (200)
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "username": "aluno@example.test",
+  "password": "senha-de-teste"
+}
+
+### 4. Senha incorreta (401)
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "username": "aluno@example.test",
+  "password": "senha-errada"
+}
+
+### 5. Listar alunos (200)
+GET {{baseUrl}}/alunos
+Authorization: Bearer {{token}}
+
+### 6. Consultar aluno (200)
+GET {{baseUrl}}/alunos/1
+Authorization: Bearer {{token}}
+
+### 7. Médias (200)
+GET {{baseUrl}}/alunos/medias
+Authorization: Bearer {{token}}
+
+### 8. Situação de TODOS os alunos (200)
+GET {{baseUrl}}/alunos/aprovados
+Authorization: Bearer {{token}}
+
+### 9. Cadastrar aluno (201)
+POST {{baseUrl}}/alunos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "id": 4,
+  "nome": "Demóstenes",
+  "ra": "44444",
+  "nota1": 6,
+  "nota2": 7
+}
+
+### 10. Alterar aluno (200)
+PUT {{baseUrl}}/alunos/4
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nome": "Demóstenes Silva",
+  "ra": "004444",
+  "nota1": 5,
+  "nota2": 7
+}
+
+### 11. Consultar aluno atualizado (200)
+GET {{baseUrl}}/alunos/4
+Authorization: Bearer {{token}}
+
+### 12. Excluir o aluno de exemplo cadastrado acima (200)
+DELETE {{baseUrl}}/alunos/4
+Authorization: Bearer {{token}}
+
+### 13. Consultar aluno já removido (404)
+GET {{baseUrl}}/alunos/4
+Authorization: Bearer {{token}}
+
+### 14. Alterar aluno inexistente (404)
+PUT {{baseUrl}}/alunos/999
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nome": "Aluno inexistente",
+  "ra": "99999",
+  "nota1": 5,
+  "nota2": 7
+}
+
+### 15. Excluir aluno inexistente (404)
+DELETE {{baseUrl}}/alunos/999
+Authorization: Bearer {{token}}
+
+### 16. Token inválido (403)
+GET {{baseUrl}}/alunos
+Authorization: Bearer token-invalido
