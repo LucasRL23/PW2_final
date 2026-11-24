@@ -27,9 +27,9 @@ Alunos e usuários são armazenados em **arrays em memória**, como permitido pe
 
 | ID | Nome | RA | Nota 1 | Nota 2 | Média | Situação |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Asdrubal | 11111 | 8.5 | 9.5 | 9 | aprovado |
-| 2 | Lupita | 22222 | 7.5 | 7 | 7.25 | aprovado |
-| 3 | Zoroastro | 33333 | 3 | 4 | 3.5 | reprovado |
+| 1 | Biruta | 11111 | 8.5 | 9.5 | 9 | aprovado |
+| 2 | Lucao | 22222 | 7.5 | 7 | 7.25 | aprovado |
+| 3 | Enzo | 33333 | 3 | 4 | 3.5 | reprovado |
 
 O array de usuários começa vazio. Primeiro cadastre um usuário em `/register`.
 
@@ -107,7 +107,7 @@ O ID é informado no corpo, conforme permitido pelo enunciado, e precisa ser int
 
 ```json
 {
-  "nome": "Zoroastro Pereira",
+  "nome": "Enzo Pereira",
   "ra": "3333399999",
   "nota1": 3.5,
   "nota2": 4.5

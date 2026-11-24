@@ -100,14 +100,14 @@ test('lista os três alunos iniciais com todos os campos', async () => {
   const r = await requisitar('/alunos');
   assert.equal(r.status, 200);
   assert.equal(r.dados.length, 3);
-  assert.deepEqual(r.dados[0], { id: 1, nome: 'Asdrubal', ra: '11111', nota1: 8.5, nota2: 9.5 });
+  assert.deepEqual(r.dados[0], { id: 1, nome: 'Biruta', ra: '11111', nota1: 8.5, nota2: 9.5 });
 });
 
 test('rota de médias retorna nome e média, sem conflito com /:id', async () => {
   const r = await requisitar('/alunos/medias');
   assert.equal(r.status, 200);
   assert.deepEqual(r.dados, [
-    { nome: 'Asdrubal', media: 9 }, { nome: 'Lupita', media: 7.25 }, { nome: 'Zoroastro', media: 3.5 }
+    { nome: 'Biruta', media: 9 }, { nome: 'Lucao', media: 7.25 }, { nome: 'Enzo', media: 3.5 }
   ]);
 });
 
@@ -116,8 +116,8 @@ test('situação inclui reprovados e aprova média exatamente seis', async () =>
   const r = await requisitar('/alunos/aprovados');
   assert.equal(r.status, 200);
   assert.deepEqual(r.dados, [
-    { nome: 'Asdrubal', status: 'aprovado' }, { nome: 'Lupita', status: 'aprovado' },
-    { nome: 'Zoroastro', status: 'reprovado' }, { nome: 'Demóstenes', status: 'aprovado' }
+    { nome: 'Biruta', status: 'aprovado' }, { nome: 'Lucao', status: 'aprovado' },
+    { nome: 'Enzo', status: 'reprovado' }, { nome: 'Demóstenes', status: 'aprovado' }
   ]);
 });
 
@@ -152,7 +152,7 @@ test('GET, PUT e DELETE inexistentes retornam 404 sem alterar os demais alunos',
 test('não aceita ID duplicado nem altera ID existente', async () => {
   assert.equal((await requisitar('/alunos', { method: 'POST', body: { ...novoAluno, id: 1 } })).status, 409);
   assert.equal((await requisitar('/alunos/1', { method: 'PUT', body: novoAluno })).status, 400);
-  assert.equal((await requisitar('/alunos/1')).dados.nome, 'Asdrubal');
+  assert.equal((await requisitar('/alunos/1')).dados.nome, 'Biruta');
 });
 
 test('dados inválidos não entram no array nem corrompem um aluno existente', async () => {
